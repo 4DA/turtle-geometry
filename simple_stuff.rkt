@@ -41,3 +41,4 @@
       (simple-fig t))
     frame))
 
+(run)
