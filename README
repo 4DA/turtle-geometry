@@ -1,0 +1,2 @@
+Some geometry programs from Abelson's book.
+turtle.rkt is the basic module, which is used across programs.
