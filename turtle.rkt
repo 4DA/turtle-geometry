@@ -32,8 +32,7 @@
                  (define (t-right a)   (send t right a))
                  (define (t-left a)    (send t left a))
                  (define (t-pendown)   (send t pen-down))
-                 (define (t-penup)   (send t pen-up))
-]
+                 (define (t-penup)   (send t pen-up))]
 
            (syntax-parameterize ([forward (make-rename-transformer #'t-forward)]                               
                                  [back (make-rename-transformer #'t-back)]
