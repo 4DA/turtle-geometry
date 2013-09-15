@@ -24,6 +24,8 @@
   (define-syntax-parameter pen-up 
     (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
 
+;; TODO. make turtle accessible via dynamic binding
+
   (define-syntax (with-turtle stx)
     (syntax-case stx () 
       [(with-turtle t forms ...)
