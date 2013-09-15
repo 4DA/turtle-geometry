@@ -1,8 +1,47 @@
-(module turtle racket ;; racket/gui racket/draw
+(module turtle racket
   (require racket/gui)  
   (require racket/draw)
+  (require racket/stxparam)
 
   (provide turtle%)
+  (provide with-turtle forward back left right pen-down pen-up)
+
+  (define-syntax-parameter forward 
+    (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
+
+  (define-syntax-parameter back 
+    (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
+
+  (define-syntax-parameter right 
+    (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
+
+  (define-syntax-parameter left 
+    (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
+
+(define-syntax-parameter pen-down 
+    (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
+
+(define-syntax-parameter pen-up 
+    (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
+
+  (define-syntax (with-turtle stx)
+    (syntax-case stx () 
+      [(with-turtle t forms ...)
+       #'(local [(define (t-forward v) (send t forward v))
+                 (define (t-back v)    (send t back v))
+                 (define (t-right a)   (send t right a))
+                 (define (t-left a)    (send t left a))
+                 (define (t-pendown)   (send t pen-down))
+                 (define (t-penup)   (send t pen-up))
+]
+
+           (syntax-parameterize ([forward (make-rename-transformer #'t-forward)]                               
+                                 [back (make-rename-transformer #'t-back)]
+                                 [left (make-rename-transformer #'t-left)]
+                                 [right (make-rename-transformer #'t-right)]
+                                 [pen-up (make-rename-transformer #'t-penup)]
+                                 [pen-down (make-rename-transformer #'t-pendown)])
+                                forms ...))]))
 
   (define turtle%
     (class object%
