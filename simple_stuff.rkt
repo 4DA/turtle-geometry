@@ -26,6 +26,38 @@
                (left 45)
                (forward 45)))
 
+(define (simple-triangle-60 size t)
+  (with-turtle t
+               (for ([x 3])
+                 (forward size)
+                 (right 120))))
+
+(define (to-thing t)
+  (with-turtle t
+               (forward 100)
+               (right 90)
+               (forward 100)
+               (right 90)
+               (forward 50)
+               (right 90)
+               (forward 50)
+               (right 90)
+               (forward 100)
+               (right 90)
+               (forward 25)
+               (right 90)
+               (forward 25)
+               (right 90)
+               (forward 50)
+))
+
+(define (to-thing1 t)
+  (for ([x 4])
+    (to-thing t)
+    )
+  
+  )
+
 (require racket/gui)  
 (require racket/draw)
 
@@ -39,9 +71,9 @@
     (send frame show #t)
     (sleep/yield 1)
     
-    (let ([t (new turtle% [in-dc dc])])
-      (circle t)
-      (simple-fig t))
-    frame))
+    (let ([t (new turtle% [in-pen (new pen% [color "black"] [width 2])] 
+                  [in-dc dc] [in-x 320] [in-y 240])])
+      (to-thing1 t)
+    frame)))
 
 (run)
