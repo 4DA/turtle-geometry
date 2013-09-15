@@ -73,8 +73,8 @@
       (define/public (forward val)
         (let* ([xd (* val (cos angle))]
                [yd (* val (sin angle))]
-               [nx (round (+ pos-x xd))]
-               [ny (round (+ pos-y yd))])
+               [nx (+ pos-x xd)]
+               [ny (+ pos-y yd)])
           (when pen-down?
             (send dc draw-line pos-x pos-y 
                   nx ny))
