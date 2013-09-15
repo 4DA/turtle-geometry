@@ -58,6 +58,7 @@
       (field (pos-y in-y))
 
       ;; turtle is looking "up" on default
+      (field (angle-deg 90))
       (field (angle (/ pi 2))) 
       (field (pen-down? in-pen-down?))
 
@@ -68,13 +69,15 @@
         (set! pen-down? #t))
 
       (define/public (forward val)
-        (let ([xd (* val (cos angle))]
-              [yd (* val (sin angle))])
+        (let* ([xd (* val (cos angle))]
+               [yd (* val (sin angle))]
+               [nx (round (+ pos-x xd))]
+               [ny (round (+ pos-y yd))])
           (when pen-down?
             (send dc draw-line pos-x pos-y 
-                  (+ pos-x xd) (- pos-y yd)))
-          (set! pos-x (+ pos-x xd))
-          (set! pos-y (- pos-y yd))))
+                  nx ny))
+          (set! pos-x nx)
+          (set! pos-y ny)))
 
       (define/public (back val)
         (let ([xd (* val (cos angle))]
@@ -86,10 +89,12 @@
           (set! pos-y (+ pos-x yd))))
 
       (define/public (left degr)
-        (set! angle (+ angle (degrees->radians degr))))
+        (set! angle-deg (+ angle-deg degr))
+        (set! angle (degrees->radians angle-deg)))
 
       (define/public (right degr)
-        (set! angle (- angle (degrees->radians degr))))
+        (set! angle-deg (- angle-deg degr))
+        (set! angle (degrees->radians angle-deg)))
 
       (super-new)))
   )
