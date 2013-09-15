@@ -54,9 +54,21 @@
 (define (to-thing1 t)
   (for ([x 4])
     (to-thing t)
-    )
-  
-  )
+    ))
+
+(define (to-thing2 t)
+  (for ([x 10])
+    (to-thing t)
+    (with-turtle t
+                 (right 10)
+                 (forward 50))))
+
+(define (to-thing3 t)
+  (for ([x 10])
+    (to-thing t)
+    (with-turtle t
+                 (left 45)
+                 (forward 100))))
 
 (require racket/gui)  
 (require racket/draw)
@@ -65,15 +77,20 @@
   (let* ([frame (new frame% [label "turtle"])]
          [canvas (new canvas% [parent frame])]
          [dc (send canvas get-dc)]
-         [width 640]
-         [height 480])
+         [width 1024]
+         [height 768])
 
     (send frame show #t)
     (sleep/yield 1)
     
     (let ([t (new turtle% [in-pen (new pen% [color "black"] [width 2])] 
                   [in-dc dc] [in-x 320] [in-y 240])])
-      (to-thing1 t)
-    frame)))
+      (to-thing2 t))
+
+    (let ([t (new turtle% [in-pen (new pen% [color "black"] [width 2])] 
+                  [in-dc dc] [in-x 800] [in-y 300])])
+      (to-thing3 t))
+
+    frame))
 
 (run)
