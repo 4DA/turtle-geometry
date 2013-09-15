@@ -18,10 +18,10 @@
   (define-syntax-parameter left 
     (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
 
-(define-syntax-parameter pen-down 
+  (define-syntax-parameter pen-down 
     (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
 
-(define-syntax-parameter pen-up 
+  (define-syntax-parameter pen-up 
     (lambda (stx) (raise-syntax-error #f "Not used inside `with-turtle'!" stx)))
 
   (define-syntax (with-turtle stx)
@@ -92,5 +92,5 @@
         (set! angle (- angle (degrees->radians degr))))
 
       (super-new)))
-)
+  )
 
