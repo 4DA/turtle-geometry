@@ -6,22 +6,25 @@
 
 (define (circle t)
   (let loop ([i 0])
-    (send t forward 1)
-    (send t right 1)
+    (with-turtle t
+                 (forward 1)
+                 (right 2))
+
     (when (< i 360)
       (loop (+ i 1)))))
 
 (define (simple-fig t)
-      (send t pen-down)
-      (send t forward 30)
-      (send t right 45)
-      (send t forward 30)
-      (send t left 135)
-      (send t forward 30)
-      (send t left 45)
-      (send t forward 45)
-      (send t left 45)
-      (send t forward 45))
+  (with-turtle t
+               (pen-down)
+               (forward 30)
+               (right 45)
+               (forward 30)
+               (left 135)
+               (forward 30)
+               (left 45)
+               (forward 45)
+               (left 45)
+               (forward 45)))
 
 (require racket/gui)  
 (require racket/draw)
